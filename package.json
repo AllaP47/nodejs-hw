@@ -2,32 +2,35 @@
   "name": "nodejs-hw",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AllaP47/nodejs-hw.git"
+    "url": "git+https://github.com"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AllaP47/nodejs-hw/issues"
+    "url": "https://github.com"
   },
-  "homepage": "https://github.com/AllaP47/nodejs-hw#readme",
+  "homepage": "https://github.com",
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "pino": "^10.3.1",
-    "pino-http": "^11.0.0"
+    "pino-http": "^11.0.0",
+    "pino-pretty": "^11.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "eslint": "^10.8.1",
+    "globals": "^15.0.0",
     "nodemon": "^3.1.14",
     "prettier": "^3.9.6"
   }
