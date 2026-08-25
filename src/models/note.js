@@ -5,16 +5,38 @@ const noteSchema = new Schema(
     title: {
       type: String,
       required: true,
+      trim: true,
     },
     content: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
+      trim: true,
+    },
+    tag: {
+      type: String,
+      required: false,
+      default: 'Todo',
+      trim: true,
+      enum: [
+        'Work',
+        'Personal',
+        'Meeting',
+        'Shopping',
+        'Ideas',
+        'Travel',
+        'Finance',
+        'Health',
+        'Important',
+        'Todo',
+      ],
     },
   },
   {
     timestamps: true, 
-    versionKey: false, 
+    versionKey: false,
   },
 );
 
-export const NotesCollection = model('notes', noteSchema);
+
+export const Note = model('Note', noteSchema);
