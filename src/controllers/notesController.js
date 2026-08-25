@@ -1,5 +1,5 @@
 import createHttpError from 'http-errors';
-import { Note } from '../models/note.js'; 
+import { Note } from '../models/note.js';
 
 
 export const getAllNotes = async (req, res, next) => {
@@ -10,7 +10,6 @@ export const getAllNotes = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const getNoteById = async (req, res, next) => {
   try {
@@ -27,7 +26,6 @@ export const getNoteById = async (req, res, next) => {
   }
 };
 
-
 export const createNote = async (req, res, next) => {
   try {
     const newNote = await Note.create(req.body);
@@ -37,13 +35,13 @@ export const createNote = async (req, res, next) => {
   }
 };
 
-
 export const updateNote = async (req, res, next) => {
   try {
     const { noteId } = req.params;
+  
     const updatedNote = await Note.findByIdAndUpdate(noteId, req.body, {
-      new: true,
-      runValidators: true,
+      returnDocument: 'after', 
+      runValidators: true,     
     });
 
     if (!updatedNote) {
