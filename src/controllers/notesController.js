@@ -6,39 +6,44 @@ export const getAllNotes = async (req, res, next) => {
   try {
     const { tag, search, page = 1, perPage = 10 } = req.query;
     
-    // Перетворюємо параметри пагінації на числа
     const pageNumber = parseInt(page, 10);
     const perPageNumber = parseInt(perPage, 10);
-
-  
     const skip = (pageNumber - 1) * perPageNumber;
 
    
-    const filter = {};
+    const notesQuery = Note.find();
 
     if (tag) {
-      filter.tag = tag;
+      notesQuery.where('tag').equals(tag);
     }
 
     if (search) {
-      filter.$or = [
+      notesQuery.or([
         { title: { $regex: search, $options: 'i' } },
         { content: { $regex: search, $options: 'i' } },
-      ];
+      ]);
     }
 
-   
-    const totalNotes = await Note.countDocuments(filter);
 
-    
-    const notes = await Note.find(filter)
-      .skip(skip)
-      .limit(perPageNumber);
+    const notes = await notesQuery.skip(skip).limit(perPageNumber);
 
-   
+  
+    const countQuery = Note.countDocuments();
+
+    if (tag) {
+      countQuery.where('tag').equals(tag);
+    }
+
+    if (search) {
+      countQuery.or([
+        { title: { $regex: search, $options: 'i' } },
+        { content: { $regex: search, $options: 'i' } },
+      ]);
+    }
+
+    const totalNotes = await countQuery;
     const totalPages = Math.ceil(totalNotes / perPageNumber);
 
-   
     res.status(200).json({
       page: pageNumber,
       perPage: perPageNumber,

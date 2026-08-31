@@ -20,14 +20,17 @@ const noteSchema = new Schema(
       default: 'Todo',
       trim: true,
       enum: TAGS,
-      index: true,
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
     versionKey: false,
   },
 );
 
+noteSchema.index({ tag: 1 });
+
 export const Note = model('Note', noteSchema);
+
+
 
