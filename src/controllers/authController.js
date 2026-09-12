@@ -157,13 +157,14 @@ export const requestResetEmail = async (req, res, next) => {
     });
 
     try {
+   
       await sendEmail({
+        from: process.env.SMTP_FROM,
         to: email,
         subject: 'Reset your password',
         html: htmlContent,
       });
     } catch (emailError) {
-     
       console.error('Email transport breakdown:', emailError);
       throw createHttpError(500, 'Failed to send the email, please try again later.');
     }
@@ -175,6 +176,7 @@ export const requestResetEmail = async (req, res, next) => {
     next(error);
   }
 };
+
 
 export const resetPassword = async (req, res, next) => {
   try {
