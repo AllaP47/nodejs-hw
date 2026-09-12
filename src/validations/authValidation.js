@@ -2,15 +2,26 @@ import { Joi, Segments } from 'celebrate';
 
 export const registerUserSchema = {
   [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    email: Joi.string().email().required().messages({
+      'string.email': 'Email must be a valid email address',
+      'any.required': 'Email is a required field',
+    }),
+    password: Joi.string().min(8).required().messages({
+      'string.min': 'Password must be at least 8 characters long',
+      'any.required': 'Password is a required field',
+    }),
   }),
 };
 
 export const loginUserSchema = {
   [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
+    email: Joi.string().email().required().messages({
+      'string.email': 'Email must be a valid email address',
+      'any.required': 'Email is a required field',
+    }),
+    password: Joi.string().required().messages({
+      'any.required': 'Password is a required field',
+    }),
   }),
 };
 
@@ -25,8 +36,8 @@ export const requestResetEmailSchema = {
 
 export const resetPasswordSchema = {
   [Segments.BODY]: Joi.object().keys({
-    password: Joi.string().min(6).required().messages({
-      'string.min': 'Password must be at least 6 characters long',
+    password: Joi.string().min(8).required().messages({
+      'string.min': 'Password must be at least 8 characters long',
       'any.required': 'Password is a required field',
     }),
     token: Joi.string().required().messages({

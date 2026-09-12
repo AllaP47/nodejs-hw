@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { updateAvatar } from '../controllers/userController.js';
+import { updateUserAvatar } from '../controllers/userController.js';
 import { upload } from '../middleware/multer.js';
 import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
 
 
-router.patch('/me/avatar', authenticate, upload.single('avatar'), updateAvatar);
+router.patch('/me/avatar', authenticate, upload.single('avatar'), updateUserAvatar);
 
 export default router;
+

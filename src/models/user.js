@@ -5,24 +5,27 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: false,
-      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      trim: true,
     },
     password: {
       type: String,
       required: true,
-      minlength: 8,
+    },
+   
+    avatar: {
+      type: String,
+      required: false,
+      default: 'https://cloudinary.com', 
     },
   },
   {
     timestamps: true,
     versionKey: false,
-  },
+  }
 );
 
 
@@ -40,4 +43,5 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-export const User = model('User', userSchema);
+export const User = model('user', userSchema);
+
